@@ -20,8 +20,8 @@ resource "aws_instance" "web" {
     #!/bin/bash
     apt-get update -y
     apt-get install -y nginx
-    systemctl start nginx
-    systemctl enable nginx
+    systemctl stop nginx
+    systemctl disable nginx
 
     # Install Docker from the official Docker repository
     sudo apt update
