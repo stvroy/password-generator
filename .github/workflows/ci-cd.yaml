@@ -50,7 +50,7 @@ jobs:
     # Step 2: Deploy the containerized application
     - name: Deploy Application to VM
       run: |
-        ssh -o StrictHostKeyChecking=no user@<VM_IP_ADDRESS> << EOF
+        ssh -o StrictHostKeyChecking=no ubuntu@54.145.224.122 << EOF
         docker pull username/password-generator:latest
         docker stop password-generator || true
         docker rm password-generator || true
