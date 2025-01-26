@@ -51,8 +51,8 @@ jobs:
     - name: Deploy Application to VM
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.IP_ADDRESS }} << EOF
-        docker pull username/password-generator:latest
-        docker stop password-generator || true
-        docker rm password-generator || true
-        docker run -d -p 80:80 --name password-generator username/password-generator:latest
+        sudo docker pull username/password-generator:latest
+        sudo docker stop password-generator || true
+        sudo docker rm password-generator || true
+        sudo docker run -d -p 80:80 --name password-generator username/password-generator:latest
         EOF
