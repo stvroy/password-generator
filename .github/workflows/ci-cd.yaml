@@ -54,5 +54,5 @@ jobs:
         sudo docker pull ${{ secrets.DOCKER_USERNAME }}/password-generator:latest
         sudo docker stop password-generator || true
         sudo docker rm password-generator || true
-        sudo docker run -d -p 80:80 --name password-generator ${{ secrets.DOCKER_USERNAME }}/password-generator:latest
+        sudo docker run -d -p 8080:80 --name password-generator ${{ secrets.DOCKER_USERNAME }}/password-generator:latest
         EOF
