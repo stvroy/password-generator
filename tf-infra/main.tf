@@ -13,7 +13,7 @@ resource "aws_instance" "web" {
   key_name      = aws_key_pair.devops_key.key_name
 
   tags = {
-    Name = "devops-web"
+    Name = "password-gen"
   }
 
   user_data = <<-EOF
@@ -22,7 +22,26 @@ resource "aws_instance" "web" {
     apt-get install -y nginx
     systemctl start nginx
     systemctl enable nginx
-  EOF
+
+    # Install Docker from the official Docker repository
+    sudo apt update
+    sudo apt install curl apt-transport-https ca-certificates software-properties-common
+    sudo apt install docker.io -y 
+
+    # Install Docker Compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+ EOF
+}
+
+# Allocate an Elastic IP
+resource "aws_eip" "web_eip" {
+  instance = aws_instance.web.id
+}
+
+# Output the Elastic IP address
+output "instance_ip" {
+  value = aws_eip.web_eip.public_ip
 }
 
 resource "aws_security_group" "pass_sg" {
